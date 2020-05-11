@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{%load crispy_forms_tags%}
+{% block content %}
+
+{%for i in messages%}
+{{i}}
+{% endfor %}
+
+<div class="container">
+<h1>Registration form</h1>
+<form method="post">
+    {% csrf_token %}
+    {{form2|crispy}}
+    <br>
+    <input type="submit" class=" btn btn-default btn-primary" value="submit">
+</form>
+    </div>
+{% endblock %}
+
+
+<!--<form action="register" method="post">
+    {% csrf_token%}
+    Enter username:<input type="text" name="username" placeholder="username"><br>
+    Enter password:<input type="password" name="password1" placeholder="password"><br>
+    Re enter password:<input type="password" name="password2" placeholder="confirm password"><br>
+    <input type="submit">
+</form>
+
+<div>
+    {% for i in messages %}
+    <h3>{{i}}</h3>
+    {% endfor %}
+</div>-->

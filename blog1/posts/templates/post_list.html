@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+<div class="container col-sm-6 col-md-3">
+{% for i in items %}
+<a href="{{i.get_absolute_url}}" class="thumbnail">{{i.title}}{% if i.draft %} <span style='color:red;' >Draft</span> {% endif %}</a><br>
+    <p>Author-{{i.user.username}}</p>
+{{i.content|truncatechars:50}}<br>
+
+    <br>
+{% endfor %}
+    </div>
+</div>
+{% endblock %}

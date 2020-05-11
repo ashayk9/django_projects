@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+<h1>are u confirm u want to unreserve this book ?</h1>
+<input class="btn btn-default btn-primary" type="submit" value="Yes">
+    <a href="{% url 'book_detail_view' book_instance.book.pk %}" class="btn btn-default btn-primary" type="submit">No</a>
+
+</form>
+{% endblock %}

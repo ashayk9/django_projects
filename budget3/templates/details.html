@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+{{obj1.id}}
+<h1>hello {{obj1.user }} dated {{obj1.dob}}</h1>
+
+<p>intake={{obj2.intake}}</p>
+<p>expenditure={{obj2.expenditure}} added on {{obj2.date_added}}</p>
+
+
+
+{% else %}
+<h2><a href="{% url 'login' %}">please click here to login</a></h2>
+{% endif %}
+{% endblock %}

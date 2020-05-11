@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 align="center">Book List</h1>
+  {% if book_list %}
+  <ul>
+    {% for book in book_list %}
+      <li class="card">
+        <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}}) <br>
+
+
+        <!--<p class="{% if book.status == 'a' %}text-success{% elif book.status == 'm' %}text-danger{% else %}text-warning{% endif %}">
+          ({{book.get_status_display}})
+        </p>-->
+
+      </li>
+    <br>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no books in the library.</p>
+  {% endif %}
+{% endblock %}

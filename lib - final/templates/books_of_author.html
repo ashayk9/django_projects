@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 align="center">Books of {{author}}</h1>
+<ul>
+{% for i in books_of_author %}
+<li class="card">
+    <a href="{{ i.get_absolute_url }}">{{i.title}}</a><br>
+</li>
+<br>
+{% endfor %}
+    </ul>
+<br>
+<!--{{books_of_author_qs.title}}-->
+{% endblock %}

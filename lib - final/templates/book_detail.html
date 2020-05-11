@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 align="center">Title: {{ book_detail.title }}</h1>
+<div class="card">
+
+  <p><strong>Author:</strong> <a href="">{{ book_detail.author }}</a></p> <!-- author detail link not yet defined -->
+  <p><strong>Summary:</strong> {{ book_detail.summary }}</p>
+  <p><strong>ISBN:</strong> <a href="https://www.isbn-international.org/content/what-isbn">{{ book_detail.isbn }}</a></p>
+  <p><strong>Genre:</strong>
+    {% for genre in book_detail.genre.all %}
+    {{ genre }}
+    {% endfor %}
+  </p>
+  <p><strong>No of books</strong> {{ book_detail.no_of_books }}</p>
+  </div>
+
+
+<!--  <div style="margin-left:20px;margin-top:20px">-->
+
+
+    <!--<p class="{% if book_detail.status == 'a' %}text-success{% elif book_detail.status == 'm' %}text-danger{% else %}text-warning{% endif %}">
+          ({{book_detail.get_status_display}})
+        </p>
+        (date.today()-copy.due_back).days*100
+        -->
+  {% if user.is_authenticated %}
+
+    <h4 align="center">Copies</h4>
+<div class="card">
+<ul>
+    {% for copy in book_detail.bookinstance_set.all %}
+    <li class="">
+      <hr>
+          <p class="text-muted"><strong>Id:</strong> {{copy.id}}</p>
+
+      <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'm' or copy.is_overdue %}text-danger{% else %}text-warning{% endif %}">{{ copy.get_status_display }}</p>
+      {% if copy.status != 'a' %}
+        <p><strong>Due to be returned:</strong> {{copy.due_back}}</p>
+      {% endif %}
+      <p>
+  {% if user.is_authenticated and copy.status == 'a' %}
+  <a href="{{copy.id}}/borrow">Borrow</a>
+  {% endif %}
+  </p>
+
+
+    {% if copy.borrower != user and copy.reservations != 'r' and copy.status != 'a' %}
+        <a href="{{copy.get_absolute_url_for_reserve}}" type="submit">reserve</a>
+    {% endif %}
+
+    {% if copy.reserver != user and copy.reservations == 'r'%}
+      <p>Already Reserved</p>
+    {% endif %}
+
+    {% if copy.reserver == user and copy.reservations == 'r'%}
+    <a href="{{copy.get_absolute_url_for_unreserve}}" type="submit">unreserve</a>
+    {% endif %}
+
+    {% if copy.status == 'o' and copy.borrower == user %}
+    <a href="{{copy.get_absolute_url_for_return}}" type="submit">return</a>/
+    <a href="{{copy.get_absolute_url_for_renewal}}" type="submit">renew</a>
+
+    {% endif %}
+    </li>
+  <br>
+    {% endfor %}
+      </ul>
+    <br>
+        {% endif %}
+
+  </div>
+{% endblock %}

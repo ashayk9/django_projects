@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>home</title>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li>home</li>
+            {% if user.is_authenticated %}
+            <li>hello {{user.username}}</li>
+            <li><a href="{% url 'logout' %}">logout</a></li>
+            {% else %}
+            <li><a href="{% url 'register' %}">register</a></li>
+            <li><a href="{% url 'login' %}">login</a></li>
+            {% endif %}
+
+        </ul>
+    </nav>
+</header>
+{% block content%}
+{% endblock %}
+</body>
+</html>

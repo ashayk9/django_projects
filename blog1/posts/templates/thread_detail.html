@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+        <hr>
+
+        <div>
+            <div style="border-left: 4px solid #ccc;background-color: #f3f3f3; padding: 7px;">
+                <p >{{c.content}}</p>
+                <footer class="text-secondary"> via {{c.user}} on {{c.timestamp}}{% if i.children.count >= 0 %} {{ i.children.count }} comment(s) {% endif %} |<a href="#" class="comment-reply-btn">reply</a></footer>
+                <div class="comment-reply" style="display:none;"></div>
+                {% for child_comments in c.children %}
+                <blockquote>
+                    <div style="border-left: 4px solid #ccc;background-color: #f3f3f3; padding: 7px;">
+                        <p >{{child_comments.content}}</p>
+                        <footer class="text-secondary"> via {{child_comments.user}} on {{child_comments.timestamp}}</footer>
+                    </div>
+                </blockquote>
+                {% endfor %}
+
+
+
+             <form method="post" action="">
+            {% csrf_token %}
+            {{form|crispy}}
+                 <input type="hidden" name="parent_id" value="{{c.id}}">
+            <input type="submit" class="btn btn-default btn-primary" value="reply"></input>
+             </form>
+
+            </div>
+
+        </blockquote>
+        <hr>
+    </div>
+<br>
+    </div>
+{% endblock %}

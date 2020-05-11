@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 align="center">Local Library Home</h1>
+<div class="card" align="center">
+  <h5  >Welcome to LocalLibrary !!!</h5>
+  <p>created by:-</p>
+  <p>Ashay Mehta(60004180010)</p>
+  <p>Bhavya Lakhani(60004180014)</p>
+  <p>Chinmay Jain(60004180015)</p>
+  </div>
+  <h2 align="center">Dynamic content</h2>
+<div class="card">
+  <p>The library has the following record counts:</p>
+  <ul >
+    <li><strong>Books:</strong> {{ num_books }}</li>
+    <!--<li><strong>Copies:</strong> {{ num_instances }}</li>-->
+<!--    <li><strong>Books available:</strong> {{ num_instances_available }}</li>-->
+    <li><strong>Authors:</strong> {{ num_authors }}</li>
+<!--        <li><strong>sessions:</strong> {{ num_visits }}</li>-->
+
+
+
+  </ul>
+  </div>
+{% endblock %}

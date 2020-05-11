@@ -1,0 +1,37 @@
+                        {% extends "base.html" %}
+
+{% block content %}
+    <h1 align="center">Borrowed books</h1>
+
+    {% if user_book_list %}
+    <ul>
+
+      {% for bookinst in user_book_list %}
+      <li class="{% if bookinst.is_overdue %}text-danger{% endif %} card">
+        <a href="{% url 'book_detail_view' bookinst.book.pk %}">{{bookinst.book.title}}</a> ({{ bookinst.due_back }})
+      </li>
+        <br>
+      {% endfor %}
+    </ul>
+
+    {% else %}
+      <p align="center">There are no books borrowed.</p>
+    {% endif %}
+
+     <h1 align="center">Resrved Books</h1>
+      {% if user_reserve_book_list %}
+    <ul>
+
+      {% for bookinst in user_reserve_book_list %}
+      <li class="card">
+        <a href="{% url 'book_detail_view' bookinst.book.pk %}">{{bookinst.book.title}}</a> ({{ bookinst.due_back }})
+      </li>
+        <br>
+      {% endfor %}
+    </ul>
+
+    {% else %}
+      <p align="center">There are no books reserved.</p>
+    {% endif %}
+
+{% endblock %}

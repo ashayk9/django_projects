@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container col-sm-6 col-sm-offset-3">
+    <h1>{{obj.title}} {% if obj.draft %} <span style='color:red;' >Draft</span> {% endif %} <small>{{obj.publish}}</small></h1>
+    {{obj.content|linebreaks}}
+    {{obj.user.username}}<br>
+    <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
+    <br>
+<div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-width="" data-numposts="5"></div>
+    <br>
+    <div>
+        <p class="lead">Comments</p>
+        {% if user.is_authenticated %}
+        <form method="post" action="">
+            {% csrf_token %}
+            {{comment_form|crispy}}
+            <input type="submit" class="btn btn-default btn-primary" value="post comment">
+
+        </form>
+        {% else %}
+        <p><a href="{% url 'login' %}">please login to continue</a></p>
+        {% endif %}
+
+        <hr>
+
+        {% for c in comments %}
+        <blockquote>
+
+            <div style="border-left: 4px solid #ccc;background-color: #f3f3f3; padding: 7px;">
+                <p >{{c.content}}</p>
+                <footer class="text-secondary"> via {{c.user}} on {{c.timestamp}}{% if i.children.count >= 0 %} {{ i.children.count }} comment(s) {% endif %} |
+                    <a href="#" class="comment-reply-btn">reply</a> |
+                    <a href="{{c.get_absolute_url}}">thread</a></footer>
+                <div class="comment-reply" style="display:none;"></div>
+                {% for child_comments in c.children %}
+                <blockquote>
+                    <div style="border-left: 4px solid #ccc;background-color: #f3f3f3; padding: 7px;">
+                        <p >{{child_comments.content}}</p>
+                        <footer class="text-secondary"> via {{child_comments.user}} on {{child_comments.timestamp}}</footer>
+                    </div>
+                </blockquote>
+                {% endfor %}
+
+
+            {% if user.is_authenticated %}
+             <form method="post" action="">
+            {% csrf_token %}
+            {{comment_form|crispy}}
+                 <input type="hidden" name="parent_id" value="{{c.id}}">
+            <input type="submit" class="btn btn-default btn-primary" value="reply">
+             </form>
+                {% else %}
+        <p><a href="{% url 'login' %}">please login to continue</a></p>
+        {% endif %}
+
+            </div>
+
+        </blockquote>
+        <hr>
+        {% endfor %}
+    </div>
+<br>
+    </div>
+{% endblock %}

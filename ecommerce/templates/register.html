@@ -1,0 +1,22 @@
+{% extends 'home.html' %}
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-5 mb-5">
+        <div class="container mt-5 mb-5">
+
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">submit</button>
+
+</form>
+        </div>
+    </div>
+</div>
+
+<div>
+    {% for i in messages %}
+    <h1>{{i}}</h1>
+    {% endfor %}
+</div>
+{% endblock%}

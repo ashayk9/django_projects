@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{%load crispy_forms_tags%}
+{% block content %}
+  <h1 align="center">Renew: {{ book_instance.book.title }}</h1>
+<div class="card">
+{% if book_instance.reservations != 'r' %}
+  <p>Borrower: {{ book_instance.borrower }}</p>
+
+  <p{% if book_instance.is_overdue %} class="text-danger"{% endif %}>Due date: {{ book_instance.due_back }}</p>
+{% endif %}
+  </div>
+  {% if book_instance.reservations != 'r' %}
+  <form action="" method="post">
+    {% csrf_token %}
+
+    {{ form|crispy }}
+
+    <input class="btn btn-default btn-primary" type="submit" value="Submit">
+  </form>
+  {% else %}
+  <p>cannot renew it has been reserved</p>
+  {% endif %}
+{% endblock %}

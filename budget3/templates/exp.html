@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>hello {{ d.user }} dated {{d.dob}}</h1>
+<span>cost:</span>
+<input type="text">
+<br>
+<span>expense:</span>
+<input type="text">
+<br>
+<span>date:</span>
+<input type="date">
+<br>
+<button>submit</button>
+
+<h2>header 2</h2>
+
+<form >
+    {{form2.as_p}}
+</form>
+{% endblock %}

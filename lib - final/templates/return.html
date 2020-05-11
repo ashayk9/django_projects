@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Fine : {{book_detail_instance.fine}}</h2>
+<form method="post">
+    {% csrf_token %}
+<h1>are u confirm u want to return this book ?</h1>
+<input class="btn btn-default btn-primary" type="submit" value="Yes">
+    <a href="{% url 'book_detail_view' to_be_returned_book.book.pk %}" class="btn btn-default btn-primary" type="submit">No</a>
+
+</form>
+{% endblock %}

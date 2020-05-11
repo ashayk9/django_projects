@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+{{obj.id}}
+<h1>hello {{ obj.user }} dated {{obj.dob}}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+
+    <input type="submit"  value="submit">
+</form>
+
+
+{% else %}
+<h2><a href="{% url 'login' %}">please click here to login</a></h2>
+{% endif %}
+{% endblock %}

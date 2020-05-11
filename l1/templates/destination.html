@@ -1,0 +1,32 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+  {% if user.is_authenticated %}
+
+  <div class="destination item">
+							<div class="destination_image">
+								<img src="{%static 'images/destination_1.jpg'%}" alt="">
+
+							</div>
+							<div class="destination_content">
+								<div class="destination_title">{{d.name}}</div>
+								<div class="destination_subtitle"><p>{{d.description}}</p></div>
+								<div class="destination_price">From ${{d.price}}</div>
+							</div>
+						</div>
+
+  {% else %}
+    <p>Please login to see this page.</p>
+	<a href="account/login">please login to continue</a>
+  {% endif %}
+
+
+
+</body>
+</html>

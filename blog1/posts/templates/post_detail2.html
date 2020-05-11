@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% for i in comments %}
+    <div style="border-left: 4px solid #ccc;background-color: #f3f3f3; padding: 7px;">
+        {{ i.content }} <br>
+       <small class="text-secondary">
+           <i class="fa fa-user"></i> {{ i.user|title }} | <i class="fa fa-clock"></i>  {{ i.timestamp|timesince }} ago |
+           {% if i.children.count >= 0 %} {{ i.children.count }} comment(s) {% endif %} |<a href="#" class="reply-btn">reply</a>
+        </small>
+
+        <div class="replies" style="display:none !important;">
+            {% for child in i.children %}
+            <div style="border-left: 4px solid #ccc;background-color: #f3f3f3; padding: 7px;">
+                    {{ child.content }} <br>
+                    <small class="text-secondary">
+                        <i class="fa fa-user"></i> {{ child.user|title }} | <i class="fa fa-clock"></i>  {{ child.timestamp|timesince }} ago
+                    </small>
+            </div>
+            {% endfor %}
+
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input type="hidden" value="{{ i.id }}" name="parent_id">
+                <input type="submit" value="Submit" class="btn btn-success">
+            </form>
+        </div>
+
+    </div>
+    <hr>
+{% endfor %}
+{% endblock %}

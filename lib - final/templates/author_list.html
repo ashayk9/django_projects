@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 align="center">Authors</h1>
+{% for i in author_list %}
+<div class="card">
+<a href="{{i.get_absolute_url}}">{{ i.first_name }} {{i.last_name}}</a><br>
+    </div>
+<br>
+{% endfor %}
+
+{% endblock%}
